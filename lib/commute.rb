@@ -3,14 +3,6 @@ class Commute
     @data = CSV.read(data).sort
   end
 
-  def store_keys
-    return_keys = {}
-    @data.each do |row|
-      return_keys.store(row[0], [])
-    end
-    return_keys
-  end
-
   def convert_to_hash
     return_data = store_keys
 
@@ -54,5 +46,44 @@ class Commute
       end
     end
     total_commute_time/total_commutes
+  end
+
+  def fastest_walker
+    ordered_commuter_speeds = commuter_speeds.sort_by { |commuter, average_speed| average_speed }.reverse
+    "#{ordered_commuter_speeds.first[0]} - #{ordered_commuter_speeds.first[1].to_i}mph"
+  end
+
+
+  private
+
+  def store_keys
+    return_keys = {}
+    @data.each do |row|
+      return_keys.store(row[0], [])
+    end
+    return_keys
+  end
+
+  def commuter_speeds
+    commuter_data = convert_to_hash
+    array_of_distances = []
+    array_of_times =[]
+    commuter_speeds = {}
+
+    commuter_data.each do |commuter, commute_data|
+      commute_data.each do |week_commute_data|
+        if week_commute_data[:mode] == "walk"
+          array_of_distances << week_commute_data[:distance]
+          array_of_times << week_commute_data[:inbound]
+        end
+        total_distance = array_of_distances.inject { |sum, n| sum + n }
+        total_time = array_of_times.inject { |sum, n| sum + n }
+        average_speed = total_distance.to_f / (total_time.to_f / 60)
+        if !average_speed.nan?
+          commuter_speeds[commuter] = average_speed
+        end
+      end
+    end
+    commuter_speeds
   end
 end
