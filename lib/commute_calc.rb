@@ -36,4 +36,15 @@ class CommuteCalc
     end
     results
   end
+
+  def commute_time(person, day, week, direction)
+    hashed_data = self.to_hash
+    output = 0
+    hashed_data[person].each do |commute|
+      if commute[:week] == week && commute[:day] == day
+        output = commute[direction.to_sym]
+      end
+    end
+    output
+  end
 end

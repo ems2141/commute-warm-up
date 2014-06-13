@@ -40,4 +40,12 @@ describe CommuteCalc do
 
     expect(commute_hash).to eq(expected_value)
   end
+
+  it 'returns shows the commute time for Kinsey on Wednesday in week 3' do
+    csv_data = File.open('/Users/elsaschneiders/gSchoolWork/commute-warm-up/data/commute_full_sheet.csv')
+
+    expected_value = 60
+
+    expect(CommuteCalc.new(csv_data).commute_time("Kinsey", "Wednesday", 3, "inbound")).to eq(expected_value)
+  end
 end
