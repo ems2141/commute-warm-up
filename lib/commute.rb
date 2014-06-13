@@ -31,13 +31,28 @@ class Commute
   def inbound_time(commuter, week, day_of_week)
     return_data = nil
     commuter_data = convert_to_hash
-    x = commuter_data.fetch(commuter)
+    target_commuter = commuter_data.fetch(commuter)
 
-    x.each do |y|
-      if y[:week] == week && y[:day] == day_of_week
-        return_data = y[:inbound]
+    target_commuter.each do |week_data|
+      if week_data[:week] == week && week_data[:day] == day_of_week
+        return_data = week_data[:inbound]
       end
     end
     return_data
+  end
+
+  def average_outbound
+    commuter_data = convert_to_hash
+
+    total_commute_time = 0
+    total_commutes = 0
+
+    commuter_data.values.each do |commuter|
+      commuter.each do |commute_data|
+        total_commute_time += commute_data[:outbound]
+        total_commutes += 1
+      end
+    end
+    total_commute_time/total_commutes
   end
 end
