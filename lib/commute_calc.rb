@@ -47,4 +47,21 @@ class CommuteCalc
     end
     output
   end
+
+  def average_walk_time(direction)
+    hashed_data = self.to_hash
+
+    people = hashed_data.keys
+    array_of_times = []
+    people.each do |person|
+      travel_array_for_person = hashed_data[person]
+      travel_array_for_person.each do |stat|
+        if stat[:mode] == "Walk"
+          array_of_times << stat[direction.to_sym]
+        end
+      end
+    end
+    sum = array_of_times.inject { |sum, n| sum + n }
+    sum/(array_of_times.length)
+  end
 end
