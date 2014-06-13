@@ -24,6 +24,16 @@ describe CommuteCalc do
                 outbound: 52,
                 distance: 24
             },
+        ],
+        "Kinsey" => [
+            {
+                week: 1,
+                day: "Tuesday",
+                mode: "Drive",
+                inbound: 60,
+                outbound: 60,
+                distance: 25
+            }
         ]
     }
 

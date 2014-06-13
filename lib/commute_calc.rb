@@ -8,7 +8,7 @@ class CommuteCalc
 
     results = {}
 
-    csv_data_array = lines.pop(2)
+    csv_data_array = lines.pop(lines.length-1)
 
     csv_data_array.each do |line|
       line.gsub!("\r\n", "")
@@ -35,24 +35,5 @@ class CommuteCalc
       end
     end
     results
-
-    #"Elsa" => [
-    #    {
-    #        week: 1,
-    #        day: "Monday",
-    #        mode: "Drive",
-    #        inbound: 30,
-    #        outbound: 50,
-    #        distance: 24
-    #    },
-    #    {
-    #        week: 1,
-    #        day: "Tuesday",
-    #        mode: "Drive",
-    #        inbound: 35,
-    #        outbound: 52,
-    #        distance: 24
-    #    },
-    #]
   end
 end
