@@ -27,4 +27,17 @@ class Commute
     end
     return_data
   end
+
+  def inbound_time(commuter, week, day_of_week)
+    return_data = nil
+    commuter_data = convert_to_hash
+    x = commuter_data.fetch(commuter)
+
+    x.each do |y|
+      if y[:week] == week && y[:day] == day_of_week
+        return_data = y[:inbound]
+      end
+    end
+    return_data
+  end
 end
