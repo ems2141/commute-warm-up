@@ -3,10 +3,6 @@ class Commute
     @data = CSV.read(data).sort
   end
 
-  def return_data
-    @data
-  end
-
   def store_keys
     return_keys = {}
     @data.each do |row|
@@ -22,7 +18,8 @@ class Commute
       commuter_data = commuter_data_array
       @data.each do |row|
         if row[0] == commuter
-          week_commute_data = {:week => row[1].to_i}
+          week_commute_data =
+            {:week => row[1].to_i, :day => row[2], :mode => row[3], :inbound => row[4].to_i, :outbound => row[5].to_i, :distance => row[6].to_i}
           commuter_data << week_commute_data
           return_data[commuter] = commuter_data
         end
